@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;family=Noto+Serif:wght@500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"tertiary":"#391c00","tertiary-fixed-dim":"#feb87b","on-secondary-fixed":"#271236","on-secondary-container":"#6e567e","surface-container-highest":"#e4e2dd","error-container":"#ffdad6","surface":"#fbf9f4","on-tertiary-container":"#d5945a","tertiary-fixed":"#ffdcc2","outline-variant":"#c0c8c4","inverse-on-surface":"#f2f1ec","surface-bright":"#fbf9f4","error":"#ba1a1a","primary-fixed-dim":"#a6cfc1","on-secondary":"#ffffff","on-error":"#ffffff","background":"#fbf9f4","secondary":"#6d557d","on-primary-fixed":"#002019","on-surface-variant":"#414845","on-tertiary-fixed-variant":"#6b3b07","surface-tint":"#3f665a","on-secondary-fixed-variant":"#543e64","on-background":"#1b1c19","surface-container-lowest":"#ffffff","inverse-primary":"#a6cfc1","tertiary-container":"#582e00","on-primary-container":"#82aa9d","surface-container-low":"#f5f3ee","surface-variant":"#e4e2dd","on-error-container":"#93000a","on-primary-fixed-variant":"#274e43","surface-container-high":"#eae8e3","surface-container":"#f0eee9","on-tertiary":"#ffffff","secondary-fixed-dim":"#d9bceb","on-surface":"#1b1c19","on-tertiary-fixed":"#2e1500","primary":"#002920","surface-dim":"#dbdad5","primary-fixed":"#c1ecdd","inverse-surface":"#30312e","secondary-container":"#edcfff","outline":"#717975","primary-container":"#173f35","on-primary":"#ffffff","secondary-fixed":"#f2daff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-sm":"0.5rem","gutter":"1.5rem","space-xs":"0.25rem","margin":"3rem","space-md":"1rem","space-lg":"1.5rem","space-xl":"2.5rem","gutter-mobile":"1rem","margin-mobile":"1.25rem"},fontFamily:{"body-sm":["Noto Sans"],"headline-md":["Noto Serif"],"headline-lg-mobile":["Noto Serif"],"display-hero":["Noto Serif"],"title-md":["Noto Sans"],"headline-sm":["Noto Serif"],"body-lg":["Noto Sans"],"label-sm":["Space Grotesk"],"label-md":["Space Grotesk"],"headline-lg":["Noto Serif"],"display-hero-mobile":["Noto Serif"],"body-md":["Noto Sans"]},fontSize:{"body-sm":["13px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"400"}],"headline-md":["28px",{"lineHeight":"38px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg-mobile":["28px",{"lineHeight":"38px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-hero":["56px",{"lineHeight":"68px","letterSpacing":"-0.02em","fontWeight":"600"}],"title-md":["18px",{"lineHeight":"26px","letterSpacing":"-0.005em","fontWeight":"600"}],"headline-sm":["22px",{"lineHeight":"30px","letterSpacing":"0em","fontWeight":"600"}],"body-lg":["17px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"400"}],"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.08em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"headline-lg":["40px",{"lineHeight":"52px","letterSpacing":"-0.015em","fontWeight":"600"}],"display-hero-mobile":["38px",{"lineHeight":"48px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}]}}}}</script><title>파트너 대시보드 | 효소세상</title><meta name="description" content="효소세상 파트너 전용 비즈니스 대시보드."><meta property="og:title" content="파트너 대시보드 | 효소세상"><meta property="og:description" content="효소세상 파트너 전용 비즈니스 대시보드."><meta property="og:type" content="website"><meta name="theme-color" content="#173f35"><link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/site.css"></head><body class="bg-surface font-body-md text-on-surface antialiased" data-page="partner-dashboard" data-layout="dashboard" data-role="partner"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center justify-between bg-surface-container-low"><div class="flex items-center gap-space-sm" data-home-link><div class="w-7 h-7 rounded bg-primary-container flex items-center justify-center text-on-primary font-headline-sm text-title-md">효</div><div class="flex flex-col"><span class="font-headline-sm text-body-md font-semibold tracking-tight text-primary leading-tight">효소세상 B2B</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Fermentation Bio Lab</span></div></div><button type="button" data-action="sidebar-toggle" aria-label="사이드바 접기" class="material-symbols-outlined text-outline cursor-pointer hover:text-on-surface text-[20px]">dock_to_left</button></div><div class="px-space-md py-space-xs"><div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-label-md text-label-md text-on-surface-variant font-medium">GMP 생산라인</span></div><span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-semibold">정상가동</span></div></div><div class="px-space-md pt-space-xs"><span class="font-label-sm text-label-sm tracking-wider uppercase text-outline px-space-sm block mb-space-xs">Core Modules</span></div><nav class="flex flex-col gap-1 px-space-md" data-active-classes="bg-primary-container text-on-primary font-medium rounded-lg"><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 transition-colors bg-primary-container text-on-primary font-medium rounded-lg" data-path="dashboard" href="partner-dashboard.html"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span>대시보드</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="b2b-orders" href="#b2b-orders"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span>B2B 발주 및 주문관리</span></div><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded-full bg-secondary text-on-secondary font-bold">3</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="wholesale-catalog-pricing" href="#wholesale-catalog-pricing"><span class="material-symbols-outlined text-[20px]">request_quote</span><span>공급가 / 단가표</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="marketing-clinical-docs" href="#marketing-clinical-docs"><span class="material-symbols-outlined text-[20px]">science</span><span>마케팅 &amp; 학술자료실</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="settlement-invoices" href="#settlement-invoices"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>정산 및 세금계산서</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="b2b-quote-crm" href="#b2b-quote-crm"><span class="material-symbols-outlined text-[20px]">handshake</span><span>OEM / 견적 관리</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="franchise-partners" href="#franchise-partners"><span class="material-symbols-outlined text-[20px]">storefront</span><span>대리점 / 가맹점 관리</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="knowledge-base" href="#knowledge-base"><span class="material-symbols-outlined text-[20px]">menu_book</span><span>SEO &amp; 지식콘텐츠</span></a></nav></div><div class="p-space-md flex flex-col gap-space-sm bg-surface-container-low"><div class="pt-space-xs"><span class="font-label-sm text-label-sm tracking-wider uppercase text-outline px-space-sm block mb-space-xs">Operations</span></div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-medium rounded-lg"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="system-settings" href="#system-settings"><span class="material-symbols-outlined text-[20px]">settings</span><span>시스템 설정</span></a></nav><div class="mt-space-xs p-space-sm rounded-lg bg-surface-container flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0"><span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">제천특약점 김대표</span><span class="font-label-sm text-label-sm text-on-surface-variant">인증 파트너</span></div></div><a class="text-outline hover:text-error transition-colors" data-path="login" data-action="logout" href="partner-login.html"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm uppercase px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-semibold tracking-wide">Partner Hub v2.4</span><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">공식 특약점 포털</span></div><a class="hidden xl:flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="public-home" href="index.html"><span class="material-symbols-outlined text-[16px]">open_in_new</span>공식 대외몰 이동</a></div><div class="flex items-center gap-space-md"><div class="relative hidden md:block w-72"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span><input class="w-full pl-9 pr-4 py-1.5 rounded-lg bg-surface-container font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container" placeholder="발주번호, 품목코드, 학술자료 검색..." type="text"/></div><div class="flex items-center gap-space-xs"><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" type="button" data-action="notifications"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button><button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" type="button" data-action="toast" data-message="도움말 센터는 준비 중입니다. 고객센터 1588-0000으로 문의해 주세요."><span class="material-symbols-outlined text-[20px]">help_outline</span></button></div><div class="h-5 w-[1px] bg-outline-variant"></div><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col items-end"><span class="font-body-sm text-body-sm font-medium text-on-surface">김지훈 전무이사</span><span class="font-label-sm text-label-sm text-secondary font-semibold">최고관리자 (Superadmin)</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-16 bg-surface min-h-screen w-full px-space-lg py-space-lg"><div class="flex flex-col w-full">
+<!-- Partner Executive Welcome & Direct Actions Banner -->
+<section class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg mb-space-lg shadow-sm">
+<div class="absolute -right-16 -top-20 w-80 h-80 rounded-full bg-primary-fixed/20 blur-3xl pointer-events-none"></div>
+<div class="absolute right-1/4 -bottom-24 w-64 h-64 rounded-full bg-secondary-container/40 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs max-w-2xl">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="px-2.5 py-0.5 rounded-full bg-primary text-on-primary font-label-md text-label-md tracking-wider">VIP GOLD PARTNER</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md">가맹코드: CHN-2021-084</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">도매 공급 단가율 42% 적용 중</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">
+          환영합니다, 제천특약점 김성환 대표님
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          전통 발효공학 기반 고효소 제품군 및 벌크 바이오 원료 물류가 정상 배송되고 있습니다. 금월 분기 목표 조기 달성을 축하드립니다.
+        </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm shrink-0">
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-medium hover:bg-primary-container shadow-sm transition-all duration-200" type="button" data-action="scroll" data-target="#order-items-table">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>실시간 B2B 긴급 발주서 작성</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-body-sm text-body-sm font-medium transition-colors" type="button" data-action="toast" data-type="success" data-message="이달의 세금계산서 발행 요청이 접수되었습니다.">
+<span class="material-symbols-outlined text-[18px]">receipt</span>
+<span>이달의 세금계산서 발행</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-body-sm text-body-sm font-medium transition-colors" type="button" data-action="toast" data-message="자료실 다운로드는 준비 중입니다.">
+<span class="material-symbols-outlined text-[18px]">cloud_download</span>
+<span>최신 임상·마케팅 자료</span>
+</button>
+</div>
+</div>
+</section>
+<!-- KPI Quantitative Summary Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-lg">
+<!-- Card 1: Monthly Order Total -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant font-semibold">이번 달 발주 총액</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+</div>
+</div>
+<div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-md text-headline-md font-semibold text-primary">₩18,450,000</span>
+</div>
+<div class="flex items-center gap-1.5 mt-space-xs">
+<span class="inline-flex items-center font-label-md text-label-md font-semibold text-primary">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>+14.2%
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">전월 대비 (목표 달성률 92%)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-space-md overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<!-- Card 2: Shipments In Transit -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant font-semibold">배송 중인 물량</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+</div>
+<div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-md text-headline-md font-semibold text-on-surface">3건</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">출하 완료</span>
+</div>
+<div class="flex items-center gap-1.5 mt-space-xs">
+<span class="font-label-md text-label-md font-medium text-secondary bg-secondary-container/40 px-2 py-0.5 rounded">총 420kg</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">스틱 1,200박스 수송 중</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">CJ대한통운 2건 · 본사직송 1건</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold flex items-center">실시간 추적 <span class="material-symbols-outlined text-[14px]">arrow_forward</span></span>
+</div>
+</div>
+<!-- Card 3: Balance & Credit Limit -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant font-semibold">예치금 및 잔여 여신한도</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+</div>
+</div>
+<div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-md text-headline-md font-semibold text-primary">₩42,500,000</span>
+<span class="font-body-sm text-body-sm text-outline">/ 5000만</span>
+</div>
+<div class="flex items-center gap-1.5 mt-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-md text-label-md font-semibold text-primary">안전 한도 운용</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">(여신 소진율 15%)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-space-md overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- Card 4: Partner Direct Points -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant font-semibold">본사 직송 마일리지 / 리워드</span>
+<div class="w-8 h-8 rounded-lg bg-secondary-container/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">loyalty</span>
+</div>
+</div>
+<div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-md text-headline-md font-semibold text-secondary">1,240,000</span>
+<span class="font-label-md text-label-md font-bold text-secondary">P</span>
+</div>
+<div class="flex items-center gap-1.5 mt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">원료 및 완제품 발주 시 즉시 차감 가능</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-space-sm">
+<span class="font-label-sm text-label-sm text-outline">소멸 예정 포인트 0 P</span>
+<button class="font-label-sm text-label-sm text-secondary font-semibold hover:underline" type="button" data-action="toast" data-message="포인트 내역 화면은 준비 중입니다.">포인트 내역</button>
+</div>
+</div>
+</section>
+<!-- Editorial Visual Hook: Fermentation Craft & Bio Facility -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-space-md mb-space-lg">
+<div class="lg:col-span-2 relative rounded-xl overflow-hidden min-h-[220px] bg-primary flex flex-col justify-end p-space-lg shadow-sm">
+<div class="absolute inset-0 bg-cover bg-center mix-blend-multiply opacity-60" data-alt="Close up photograph of traditional Korean onggi earthenware jars lined under natural daylight inside an organic medicinal herb fermentation garden, rich earthy dark brown and pine onyx foliage, soft warm lighting, fine art botanical documentary style" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuALz32tL6m1Ge4MNo4qhOMm9XA8CM2vlsLiXW-FSdewVUj292QF-DJl02OA_zRacRR4JnNlmIEqZvc4XP0GZ2V0ysNJdEx0_DuuB8VLxylsU3kRo02eo4wkxJGZPH59O6fwW4ST0BvGvKkaa9Klq2o86vOCrneK8SLJvMVz1fj13UNy0ZMAmPX4egezaCaG1667NrilY_ujDPwWfN-T-qC5GS9NuqAX79rpM4MinhgWXycTZDEFY_n_')"></div>
+<div class="relative z-10 max-w-xl">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded bg-surface text-primary font-label-sm text-label-sm font-semibold tracking-wider">365-DAY TRADITIONAL AGING</span>
+<span class="text-surface font-label-sm text-label-sm opacity-80">충북 제천 약초 발효원 제1숙성고</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-primary tracking-tight">전통 옹기 속 365일 야생초 자연 발효의 정수</h2>
+<p class="font-body-sm text-body-sm text-surface-container-highest mt-1 line-clamp-2">
+          인공 방부제와 합성 감미료를 배제하고 토종 유산균과 100여 종의 산야초를 온습도 조절 클린룸에서 교차 발효하여 완성한 특약점 전용 프리미엄 라인입니다.
+        </p>
+</div>
+</div>
+<div class="rounded-xl bg-surface-container p-space-lg flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+<span class="font-label-md text-label-md uppercase font-semibold tracking-wider text-primary">GMP 클린룸 관제</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">실시간 수치</span>
+</div>
+<div class="my-space-sm flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<span class="font-body-sm text-body-sm text-on-surface-variant">발효조 내부 온도</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">36.8°C <span class="text-primary text-[11px]">정상</span></span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="font-body-sm text-body-sm text-on-surface-variant">항역가 효소 활성도</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">450,000 U/g 이상</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="font-body-sm text-body-sm text-on-surface-variant">금일 벌크 출하 대기</span>
+<span class="font-label-md text-label-md font-semibold text-secondary">2.8 톤</span>
+</div>
+</div>
+<div class="pt-space-sm bg-surface-container-lowest rounded-lg p-space-sm flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">제조공정 시험성적서(COA)</span>
+<button class="text-primary hover:text-primary-container font-label-sm text-label-sm font-semibold flex items-center gap-0.5" type="button" data-action="toast" data-message="문서 뷰어는 준비 중입니다.">
+          열람 <span class="material-symbols-outlined text-[16px]">file_open</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Main Content Grid (Left 65% / Right 35%) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN (Approx 66% width) -->
+<div class="xl:col-span-8 flex flex-col gap-space-lg">
+<!-- Module 1: Signature Wholesale Catalog & Real-Time Inventory Table -->
+<section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-md gap-space-sm">
+<div>
+<div class="flex items-center gap-space-xs mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">science</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">B2B 전용 시그니처 공급 라인업 &amp; 실시간 재고</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">제천특약점 맞춤 골드 단가율이 자동 산출되어 있습니다. 주문 수량을 선택 후 일괄 발주할 수 있습니다.</p>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="font-label-sm text-label-sm text-outline uppercase">실시간 재고 연동됨</span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</div>
+</div>
+<!-- Inventory Table Container -->
+<div class="overflow-x-auto -mx-space-lg px-space-lg">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md uppercase">
+<th class="py-3 px-space-md rounded-l-lg font-semibold">품목명 / 규격</th>
+<th class="py-3 px-space-sm font-semibold text-right">도매 공급가</th>
+<th class="py-3 px-space-sm font-semibold text-right">권장소비자가</th>
+<th class="py-3 px-space-sm font-semibold text-center">수익률</th>
+<th class="py-3 px-space-sm font-semibold text-right">본사 가용재고</th>
+<th class="py-3 px-space-md rounded-r-lg font-semibold text-center min-w-[130px]">발주 수량(Box)</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm divide-y-0" id="order-items-table">
+<!-- Item 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden shrink-0 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="Minimalist elegant botanical supplement dark amber sachet packaging box labeled with Korean calligraphy 효소세상 gold grain enzyme, clean laboratory aesthetic on soft ivory surface" src="assets/images/partner-dash-01.jpg"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">효소세상 골드 곡물발효효소</span>
+<span class="font-label-sm text-label-sm text-outline">SKU: HYS-GLD-030 · 30포/box</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm text-right font-label-md text-label-md font-semibold text-primary">
+                  ₩19,200
+                </td>
+<td class="py-3.5 px-space-sm text-right font-body-sm text-body-sm text-on-surface-variant">
+                  ₩38,400
+                </td>
+<td class="py-3.5 px-space-sm text-center">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/60 text-on-secondary-container font-label-sm text-label-sm font-bold">50.0%</span>
+</td>
+<td class="py-3.5 px-space-sm text-right">
+<span class="font-label-md text-label-md font-medium text-on-surface">4,820</span>
+<span class="font-label-sm text-label-sm text-outline">박스</span>
+</td>
+<td class="py-3.5 px-space-md text-center">
+<div class="inline-flex items-center rounded-lg bg-surface-container p-0.5">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-container-high" onclick="adjustQty('qty-1', -10)" type="button">-</button>
+<input class="w-12 text-center bg-transparent font-label-md text-label-md font-semibold text-on-surface focus:outline-none" id="qty-1" min="0" step="10" type="number" value="50"/>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-container-high" onclick="adjustQty('qty-1', 10)" type="button">+</button>
+</div>
+</td>
+</tr>
+<!-- Item 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden shrink-0 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="High end luxury apothecary glass bottle with deep amber liquid herbal fermented botanical extract, dark wood cap, clean modern Korean bio label, warm ambient studio light" src="assets/images/partner-dash-02.jpg"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">프리미엄 산야초 3년 숙성 원액</span>
+<span class="font-label-sm text-label-sm text-outline">SKU: HYS-SAN-750 · 750ml 유리병</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm text-right font-label-md text-label-md font-semibold text-primary">
+                  ₩48,000
+                </td>
+<td class="py-3.5 px-space-sm text-right font-body-sm text-body-sm text-on-surface-variant">
+                  ₩96,000
+                </td>
+<td class="py-3.5 px-space-sm text-center">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/60 text-on-secondary-container font-label-sm text-label-sm font-bold">50.0%</span>
+</td>
+<td class="py-3.5 px-space-sm text-right">
+<span class="font-label-md text-label-md font-medium text-on-surface">1,250</span>
+<span class="font-label-sm text-label-sm text-outline">병</span>
+</td>
+<td class="py-3.5 px-space-md text-center">
+<div class="inline-flex items-center rounded-lg bg-surface-container p-0.5">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-container-high" onclick="adjustQty('qty-2', -5)" type="button">-</button>
+<input class="w-12 text-center bg-transparent font-label-md text-label-md font-semibold text-on-surface focus:outline-none" id="qty-2" min="0" step="5" type="number" value="20"/>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-container-high" onclick="adjustQty('qty-2', 5)" type="button">+</button>
+</div>
+</td>
+</tr>
+<!-- Item 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden shrink-0 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="Modern botanical enzyme supplement stick boxes in sage green and clean white packaging, pharmaceutical wellness aesthetic, studio setup" src="assets/images/partner-dash-03.jpg"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">맑은숙 비움효소 데일리 스틱</span>
+<span class="font-label-sm text-label-sm text-outline">SKU: HYS-BUM-030 · 30포/box</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm text-right font-label-md text-label-md font-semibold text-primary">
+                  ₩16,800
+                </td>
+<td class="py-3.5 px-space-sm text-right font-body-sm text-body-sm text-on-surface-variant">
+                  ₩34,000
+                </td>
+<td class="py-3.5 px-space-sm text-center">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/60 text-on-secondary-container font-label-sm text-label-sm font-bold">50.5%</span>
+</td>
+<td class="py-3.5 px-space-sm text-right">
+<span class="font-label-md text-label-md font-medium text-on-surface">6,100</span>
+<span class="font-label-sm text-label-sm text-outline">박스</span>
+</td>
+<td class="py-3.5 px-space-md text-center">
+<div class="inline-flex items-center rounded-lg bg-surface-container p-0.5">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-container-high" onclick="adjustQty('qty-3', -10)" type="button">-</button>
+<input class="w-12 text-center bg-transparent font-label-md text-label-md font-semibold text-on-surface focus:outline-none" id="qty-3" min="0" step="10" type="number" value="100"/>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-container-high" onclick="adjustQty('qty-3', 10)" type="button">+</button>
+</div>
+</td>
+</tr>
+<!-- Item 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden shrink-0 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="Traditional Korean herbal medicine fermented pills inside individual golden aluminum pods in a dark lacquered wood box with subtle pine branch decoration" src="assets/images/partner-dash-04.jpg"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">활력 산삼배양근 발효환</span>
+<span class="font-label-sm text-label-sm text-outline">SKU: HYS-SSM-030 · 30환 고급목함</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm text-right font-label-md text-label-md font-semibold text-primary">
+                  ₩92,500
+                </td>
+<td class="py-3.5 px-space-sm text-right font-body-sm text-body-sm text-on-surface-variant">
+                  ₩185,000
+                </td>
+<td class="py-3.5 px-space-sm text-center">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/60 text-on-secondary-container font-label-sm text-label-sm font-bold">50.0%</span>
+</td>
+<td class="py-3.5 px-space-sm text-right">
+<span class="font-label-md text-label-md font-medium text-on-surface">890</span>
+<span class="font-label-sm text-label-sm text-outline">세트</span>
+</td>
+<td class="py-3.5 px-space-md text-center">
+<div class="inline-flex items-center rounded-lg bg-surface-container p-0.5">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-container-high" onclick="adjustQty('qty-4', -5)" type="button">-</button>
+<input class="w-12 text-center bg-transparent font-label-md text-label-md font-semibold text-on-surface focus:outline-none" id="qty-4" min="0" step="5" type="number" value="10"/>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-container-high" onclick="adjustQty('qty-4', 5)" type="button">+</button>
+</div>
+</td>
+</tr>
+<!-- Item 5: Bulk -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[24px]">inventory</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">벌크 곡물효소원말 (식품가공용)</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">SKU: BLK-ENZ-020 · 20kg 파우치</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm text-right font-label-md text-label-md font-semibold text-primary">
+                  ₩380,000
+                </td>
+<td class="py-3.5 px-space-sm text-right font-body-sm text-body-sm text-outline">
+                  (산업용 규격)
+                </td>
+<td class="py-3.5 px-space-sm text-center">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-bold">B2B전용</span>
+</td>
+<td class="py-3.5 px-space-sm text-right">
+<span class="font-label-md text-label-md font-medium text-on-surface">95</span>
+<span class="font-label-sm text-label-sm text-outline">포</span>
+</td>
+<td class="py-3.5 px-space-md text-center">
+<div class="inline-flex items-center rounded-lg bg-surface-container p-0.5">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-container-high" onclick="adjustQty('qty-5', -1)" type="button">-</button>
+<input class="w-12 text-center bg-transparent font-label-md text-label-md font-semibold text-on-surface focus:outline-none" id="qty-5" min="0" step="1" type="number" value="2"/>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface hover:bg-surface-container-high" onclick="adjustQty('qty-5', 1)" type="button">+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Summary & Action Dock -->
+<div class="mt-space-lg pt-space-md bg-surface-container-low rounded-xl p-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">선택된 발주 예상 총액</span>
+<span class="font-headline-sm text-headline-sm font-semibold text-primary" id="estimated-total">₩5,285,000</span>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant hidden sm:block"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">특약점 여신 차감 후 잔액</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">₩37,215,000 (충분)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-2.5 rounded-lg bg-surface text-on-surface hover:bg-surface-container font-body-sm text-body-sm font-medium transition-colors" type="button" data-action="reset-qty">
+              초기화
+            </button>
+<button class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container font-body-sm text-body-sm font-medium shadow-sm transition-all" type="button" data-action="bulk-order">
+<span class="material-symbols-outlined text-[18px]">shopping_cart_checkout</span>
+<span>선택 품목 일괄 B2B 발주하기</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Module 2: Recent Order Tracker -->
+<section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col">
+<div class="flex items-center justify-between pb-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">inventory_2</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">최근 발주 진행 내역 (Live Order Tracker)</h2>
+</div>
+<a class="font-label-sm text-label-sm text-primary font-semibold hover:underline flex items-center" data-path="b2b-orders" href="#b2b-orders">
+            전체 발주내역 보기 <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<div class="flex flex-col gap-space-md">
+<!-- Order Item 1: Active In-Transit -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-md text-label-md font-bold text-primary">ORD-20250124-781</span>
+<span class="text-outline font-body-sm text-body-sm">·</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">2025. 01. 24 10:40</span>
+<span class="px-2 py-0.5 rounded bg-surface text-on-surface-variant font-label-sm text-label-sm">여신 결제 (익월합산)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-container-high transition-colors flex items-center gap-1" type="button" data-action="print">
+<span class="material-symbols-outlined text-[14px]">receipt_long</span> 거래명세서 출력
+                </button>
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container transition-colors flex items-center gap-1" type="button" data-action="toast" data-message="배송 조회: CJ대한통운 6012-****-**** · 배송 중입니다.">
+<span class="material-symbols-outlined text-[14px]">local_shipping</span> 배송 추적
+                </button>
+</div>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between py-space-xs gap-space-sm">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">효소세상 골드 300박스 + 프리미엄 산야초 원액 50병 외 1건</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">공급가액: ₩8,160,000 (세액 별도) · 배송처: 충북 제천시 바이오밸리로 114 제천특약점 물류창고</span>
+</div>
+<div class="shrink-0 text-right">
+<span class="px-3 py-1 rounded-full bg-secondary text-on-secondary font-label-md text-label-md font-semibold inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-bright animate-ping"></span> 냉장물류 배송 중
+                </span>
+</div>
+</div>
+<!-- Milestone Progress Bar -->
+<div class="pt-space-xs">
+<div class="grid grid-cols-4 gap-2 text-center font-label-sm text-label-sm">
+<div class="flex flex-col items-center gap-1">
+<div class="w-full bg-primary h-1 rounded-full"></div>
+<span class="text-primary font-semibold">01 / 발주접수</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-full bg-primary h-1 rounded-full"></div>
+<span class="text-primary font-semibold">02 / GMP출하검사</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-full bg-secondary h-1 rounded-full"></div>
+<span class="text-secondary font-bold">03 / 간선상차 배송중</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-full bg-surface-container-high h-1 rounded-full"></div>
+<span class="text-outline">04 / 도착 및 입고확인</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Order Item 2: Delivered -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm opacity-90">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-md text-label-md font-bold text-on-surface">ORD-20250118-402</span>
+<span class="text-outline font-body-sm text-body-sm">·</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">2025. 01. 18 15:20</span>
+<span class="px-2 py-0.5 rounded bg-surface text-on-surface-variant font-label-sm text-label-sm">가상계좌 입금완료</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-container-high transition-colors flex items-center gap-1" type="button" data-action="print">
+<span class="material-symbols-outlined text-[14px]">receipt_long</span> 거래명세서 출력
+                </button>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md font-semibold">
+                  입고 완료됨
+                </span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">벌크 곡물효소원말 20kg 파우치 5포 (총 100kg)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">공급가액: ₩1,900,000 · 수령자: 김성환 대표 (인수 서명 완료)</span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-on-surface">도착완료 (01.20)</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN (Approx 34% width) -->
+<div class="xl:col-span-4 flex flex-col gap-space-lg">
+<!-- Module 1: HQ Notices & Promotions -->
+<section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">campaign</span>
+<h3 class="font-title-md text-title-md text-on-surface">본사 주요 공지 &amp; 프로모션</h3>
+</div>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<div class="flex flex-col divide-y-0 gap-space-xs mt-space-xs">
+<!-- Notice 1 -->
+<a class="p-space-sm rounded-lg hover:bg-surface-container-low transition-colors flex flex-col gap-1" href="#">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 rounded bg-primary text-on-primary font-label-sm text-label-sm font-bold">프로모션</span>
+<span class="font-label-sm text-label-sm text-outline">D-12</span>
+</div>
+<h4 class="font-body-sm text-body-sm font-semibold text-on-surface line-clamp-1">
+              2025 설 명절 선물세트 대리점 사전 예약 5% 추가 할인
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              산삼배양근 및 산야초 원액 2종 프리미엄 세트 사전 선점 특약점 대상 추가 마일리지 100,000P 지급 혜택.
+            </p>
+</a>
+<!-- Notice 2 -->
+<a class="p-space-sm rounded-lg hover:bg-surface-container-low transition-colors flex flex-col gap-1" href="#">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">학술자료</span>
+<span class="font-label-sm text-label-sm text-outline">2025. 01. 22</span>
+</div>
+<h4 class="font-body-sm text-body-sm font-semibold text-on-surface line-clamp-1">
+              신규 락토바실러스 특허 균주 임상 연구 논문 번역본 배포
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              한국식품영양과학회지 등재 완료. 대리점 고객 상담 시 활용 가능한 간이 요약 브로슈어 포함.
+            </p>
+</a>
+<!-- Notice 3 -->
+<a class="p-space-sm rounded-lg hover:bg-surface-container-low transition-colors flex flex-col gap-1" href="#">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-bold">생산/물류</span>
+<span class="font-label-sm text-label-sm text-outline">2025. 01. 19</span>
+</div>
+<h4 class="font-body-sm text-body-sm font-semibold text-on-surface line-clamp-1">
+              충북 제천 공장 2호기 라인 증설로 벌크 원료 납기 단축
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              유동층 건조 설비 추가 가동에 따라 식품제조용 발효원말 발주일 기준 납기가 영업일 기준 3일로 단축됩니다.
+            </p>
+</a>
+</div>
+</section>
+<!-- Module 2: Marketing & Sales Asset Library -->
+<section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">folder_special</span>
+<h3 class="font-title-md text-title-md text-on-surface">영업 &amp; 마케팅 지원 라이브러리</h3>
+</div>
+<span class="font-label-sm text-label-sm text-outline">2025 V2</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
+          대리점 매장 전시대(POP), 소셜 홍보용 상세페이지 및 인쇄 원본 벡터 파일입니다.
+        </p>
+<div class="flex flex-col gap-space-xs">
+<!-- File 1 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-secondary text-[22px]">design_services</span>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">온·오프라인 매장용 POP 디자인 키트</span>
+<span class="font-label-sm text-label-sm text-outline">AI, PDF · 고해상도 인쇄용 · 48.2 MB</span>
+</div>
+</div>
+<button class="p-2 text-primary hover:bg-surface-container rounded-lg" title="다운로드" type="button" data-action="toast" data-message="파일 다운로드는 준비 중입니다.">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+<!-- File 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-primary text-[22px]">gavel</span>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">식약처 인증 표시광고 준수 가이드라인</span>
+<span class="font-label-sm text-label-sm text-outline">2025 개정판 · PDF 문서 · 4.8 MB</span>
+</div>
+</div>
+<button class="p-2 text-primary hover:bg-surface-container rounded-lg" title="다운로드" type="button" data-action="toast" data-message="파일 다운로드는 준비 중입니다.">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+<!-- File 3 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-tertiary text-[22px]">auto_stories</span>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">효소세상 종합 제품 카탈로그 원본</span>
+<span class="font-label-sm text-label-sm text-outline">CMYK 브로슈어용 · 112 MB</span>
+</div>
+</div>
+<button class="p-2 text-primary hover:bg-surface-container rounded-lg" title="다운로드" type="button" data-action="toast" data-message="파일 다운로드는 준비 중입니다.">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+<a class="mt-space-md pt-space-xs text-center font-body-sm text-body-sm font-semibold text-primary hover:underline flex items-center justify-center gap-1" data-path="marketing-clinical-docs" href="#marketing-clinical-docs">
+<span>전체 마케팅 자료실 바로가기</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</section>
+<!-- Module 3: Dedicated Account Manager Contact Window -->
+<section class="rounded-xl bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-low p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider text-secondary">DEDICATED ACCOUNT MANAGER</span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold">1:1 직통 케어</span>
+</div>
+<div class="flex items-center gap-space-md my-space-sm">
+<div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-on-primary font-headline-sm text-headline-sm shrink-0">
+              이
+            </div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-bold text-on-surface">이지훈 수석매니저</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">본사 파트너영업본부 · 충청권역 총괄</span>
+<span class="font-label-md text-label-md text-primary font-semibold mt-0.5">직통: 02-555-8291</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">
+            대량 맞춤형 OEM 주문 제작, 여신한도 일시 증액 요청, 명절 판촉 매대 특별 배정 관련 실시간 문의가 가능합니다.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row gap-space-xs mt-space-md pt-space-xs">
+<a class="flex-1 flex items-center justify-center gap-1 py-2 rounded-lg bg-surface text-on-surface font-body-sm text-body-sm font-medium hover:bg-surface-container-highest transition-colors" href="tel:02-555-8291">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span>유선 전화</span>
+</a>
+<button class="flex-1 flex items-center justify-center gap-1 py-2 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-medium hover:bg-primary-container transition-colors shadow-sm" type="button" data-action="kakao">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<span>카카오 상담 채널</span>
+</button>
+</div>
+</section>
+</div>
+</div>
+</div>
+<script>
+  function adjustQty(inputId, delta) {
+    const el = document.getElementById(inputId);
+    if (!el) return;
+    let val = parseInt(el.value, 10) || 0;
+    val = Math.max(0, val + delta);
+    el.value = val;
+    calculateDynamicEstimatedTotal();
+  }
+
+  function calculateDynamicEstimatedTotal() {
+    const prices = [19200, 48000, 16800, 92500, 380000];
+    let total = 0;
+    for (let i = 1; i <= 5; i++) {
+      const el = document.getElementById('qty-' + i);
+      if (el) {
+        const qty = parseInt(el.value, 10) || 0;
+        total += qty * prices[i - 1];
+      }
+    }
+    const totalEl = document.getElementById('estimated-total');
+    if (totalEl) {
+      totalEl.innerText = '₩' + total.toLocaleString('ko-KR');
+    }
+  }
+</script></main></div><script src="assets/js/config.js"></script><script src="assets/js/site.js"></script></body></html>
