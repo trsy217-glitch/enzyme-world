@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /partner-login.html
+Disallow: /partner-dashboard.html
+Disallow: /admin-dashboard.html
+
+Sitemap: https://enzyme-world.vercel.app/sitemap.xml
