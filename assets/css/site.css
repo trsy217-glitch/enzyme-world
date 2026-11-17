@@ -83,7 +83,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .nav a[aria-current="page"] { background: var(--surface-3); color: var(--primary); font-weight: 700; }
 
 .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-.cart-btn { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 9px 13px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-size: 14px; }
+.cart-btn { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 9px 13px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-size: 14px; white-space: nowrap; flex: 0 0 auto; }
 .cart-btn:hover { border-color: var(--primary); color: var(--primary); }
 .cart-count { display: inline-grid; place-items: center; min-width: 19px; height: 19px; padding: 0 5px; border-radius: 999px; background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; }
 .cart-count[hidden] { display: none; }
@@ -190,6 +190,9 @@ h1, h2, h3, h4, p { margin: 0; }
 .product-spec { display: flex; justify-content: space-between; gap: 10px; padding: 9px 12px; border-radius: 9px; background: var(--surface-2); font-size: 12.5px; color: #4b524d; }
 .price-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .price { font-family: var(--serif); font-size: 22px; font-weight: 700; color: var(--primary); }
+.price-quote { font-family: var(--serif); font-size: 20px; font-weight: 700; color: var(--primary-soft); }
+.tag.quote { background: #eef2ef; color: var(--primary-soft); border: 1px solid #d6e0da; }
+.kakao-link { color: var(--primary); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .price-was { font-size: 13px; color: var(--outline); text-decoration: line-through; }
 .price-off { font-size: 12px; font-weight: 700; color: #9a3412; background: #ffedd5; padding: 3px 7px; border-radius: 6px; }
 .product-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
@@ -301,7 +304,8 @@ tr:last-child td { border-bottom: 0; }
 .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 32px; }
 .footer-brand { display: flex; flex-direction: column; gap: 12px; max-width: 330px; }
 .footer-brand .brand img { width: 34px; height: 34px; }
-.footer-col h4 { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; }
+.footer-col h3, .footer-col-title { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; font-weight: 700; }
+.footer-col-title { margin-top: 0; }
 .footer-col a, .footer-col p { display: block; font-size: 13.5px; color: #4b524d; padding: 3px 0; }
 .footer-col a:hover { color: var(--primary); text-decoration: underline; }
 .footer-biz { margin-top: 34px; padding-top: 20px; border-top: 1px solid #ded9cf; font-size: 12.5px; color: #6b716c; line-height: 1.9; }
