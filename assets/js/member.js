@@ -41,6 +41,8 @@
     error: ''
   };
   var listeners = [];
+  var creating = false;   /* 가입 처리 중에는 onAuthStateChanged가 프로필을 먼저 만들지 않도록 합니다. */
+  var createdUser = null;
   var readyResolve = null;
   var isReady = false;
   var readyPromise = new Promise(function (resolve) { readyResolve = resolve; });
@@ -239,11 +241,14 @@
     if (pw.length < 8) return Promise.reject(new Error('비밀번호는 8자 이상으로 정해 주세요.'));
     if (!input.agree) return Promise.reject(new Error('개인정보 수집·이용에 동의해 주세요.'));
     if (!SDK.ok) return ensureSdk().then(function () { return register(input); });
+    creating = true;
 
     return SDK.auth.createUserWithEmailAndPassword(email, pw).then(function (cred) {
       var user = cred.user;
+      createdUser = user;
       var done = function () {
         return createProfile(user, { name: name, phone: phone, by: '회원가입' }).then(function (profile) {
+          creating = false;
           state.user = user;
           state.profile = profile;
           return loadAdminFlag(user).then(function () {
@@ -256,10 +261,12 @@
       var named = user.updateProfile ? user.updateProfile({ displayName: name }) : Promise.resolve();
       return named.catch(function () { return null; }).then(done);
     }).catch(function (err) {
+      creating = false;
       /* 가입은 됐는데 회원 문서 저장이 실패한 경우: 계정을 남기지 않습니다. */
-      if (state.user && !state.profile) {
+      if (createdUser && !state.profile) {
         try { SDK.auth.signOut(); } catch (e) {}
       }
+      createdUser = null;
       throw fail(err);
     });
   }
@@ -501,6 +508,8 @@
         emit();
         return;
       }
+      /* 가입 처리 중: register()가 프로필을 만든 뒤 직접 화면을 갱신합니다. */
+      if (creating) return;
       loadProfile(fbUser, true).then(function (profile) {
         state.profile = profile;
         return loadAdminFlag(fbUser);
