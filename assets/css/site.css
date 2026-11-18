@@ -321,6 +321,7 @@ tr:last-child td { border-bottom: 0; }
 .between { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .hr { height: 1px; background: var(--line); border: 0; margin: 26px 0; }
 .hide { display: none !important; }
+[hidden] { display: none !important; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 
 [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
@@ -360,3 +361,60 @@ tr:last-child td { border-bottom: 0; }
   .cart-btn span.label { display: none; }
   .hero { padding: 34px 0 44px; }
 }
+
+/* ── 회원 · 등급 (member.js) ──────────────────────────── */
+.member-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); font-size: 13.5px; color: var(--primary); white-space: nowrap;
+}
+.member-btn:hover { background: var(--surface-2); }
+.member-btn .member-join { color: var(--outline); font-size: 12.5px; }
+.member-btn .member-join::before { content: "·"; margin-right: 4px; }
+.member-grade {
+  display: inline-block; padding: 3px 8px; border-radius: 999px;
+  background: var(--surface-3); color: #3d443f; font-size: 11px; font-weight: 700; letter-spacing: .02em;
+}
+.member-grade[data-grade="dealer"], .grade-dealer { background: #dcefe6; color: #0f5132; }
+.member-grade[data-grade="master"], .grade-master { background: #ece1f6; color: #4a2c63; }
+.member-grade[data-grade="normal"], .grade-normal { background: var(--surface-3); color: #3d443f; }
+.price-grade { background: #dcefe6 !important; color: #0f5132 !important; }
+.price-member { color: #0b5a3c; }
+.sum-row.sum-discount { color: #0f5132; }
+.sum-row[hidden] { display: none; }
+
+.grade-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grade-card {
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+  padding: 22px; display: flex; flex-direction: column; gap: 8px;
+}
+.grade-card.is-current { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 41, 32, .08); }
+.grade-card .rate { font-family: var(--serif); font-size: 30px; font-weight: 700; color: var(--primary); line-height: 1.2; }
+.auth-tabs { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: var(--surface-2); }
+.auth-tabs button { border: 0; background: transparent; padding: 9px 18px; border-radius: 999px; font-size: 14px; color: #3d443f; }
+.auth-tabs button.is-active { background: var(--primary); color: #fff; font-weight: 700; }
+.member-panel-head { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; }
+.member-info { display: grid; gap: 8px; font-size: 14px; margin: 0; }
+.member-info div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dashed var(--line); padding-bottom: 8px; }
+.member-info dt { color: var(--outline); }
+.member-info dd { margin: 0; text-align: right; }
+.history-list { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+.history-list li { display: flex; justify-content: space-between; gap: 10px; }
+.admin-table select { padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); font-size: 13.5px; }
+.admin-toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.admin-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.admin-summary .card { padding: 16px; gap: 4px; }
+.admin-summary b { font-family: var(--serif); font-size: 24px; color: var(--primary); }
+@media (max-width: 860px) { .member-btn .member-name { display: none; } }
+@media (max-width: 680px) { .grade-cards, .admin-summary { grid-template-columns: 1fr; } }
+
+/* 회원 등급 — 등급 카드 배지 폭 정리 · 모바일 헤더 간격 */
+.grade-card .member-grade { align-self: flex-start; }
+@media (max-width: 680px) {
+  .header-actions { gap: 6px; }
+  .member-btn { padding: 8px 8px; }
+  .member-btn .member-join { display: none; }
+  .cart-btn { padding: 8px 9px; font-size: 12.5px; }
+  .header-inner { gap: 8px; }
+}
+@media (max-width: 480px) { .brand-name span { display: none; } }

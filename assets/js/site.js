@@ -7,6 +7,19 @@
   var SHIP = CFG.shipping || { fee: 4000, freeOver: 50000, jejuExtra: 6000 };
   var CART_KEY = 'enzyme_cart_v1';
   var won = function (n) { return Number(n || 0).toLocaleString('ko-KR'); };
+
+  /* ── 회원 등급 할인 (assets/js/member.js) ─────────────
+     로그인한 회원의 등급(일반회원 0% · 대리점 30% · 총판 50%)에 따라
+     장바구니·주문서 금액이 자동으로 계산됩니다. */
+  var MEMBER = window.ENZYME_MEMBER || null;
+  function mRate() { return MEMBER && MEMBER.rate ? MEMBER.rate() : 0; }
+  function mGrade() {
+    return MEMBER && MEMBER.currentGrade ? MEMBER.currentGrade() : { key: 'normal', label: '일반회원', rate: 0 };
+  }
+  function mUser() { return MEMBER && MEMBER.current ? MEMBER.current() : null; }
+  function mPrice(base) {
+    return MEMBER && MEMBER.priceFor ? MEMBER.priceFor(base) : (Number(base) || 0);
+  }
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
@@ -117,6 +130,28 @@
       return sum + (p && p.price ? p.price * it.qty : 0);
     }, 0);
   }
+  /* 등급 할인을 적용한 실제 결제 대상 금액 */
+  function cartNet(items) {
+    return items.reduce(function (sum, it) {
+      var p = byId(it.id);
+      return sum + (p && p.price ? mPrice(p.price) * it.qty : 0);
+    }, 0);
+  }
+  /* 요약 영역에 '회원 등급할인' 줄을 한 번만 만들어 둡니다. */
+  function ensureDiscountRow(suffix) {
+    var shipEl = document.getElementById('sumShipping' + suffix);
+    if (!shipEl) return null;
+    var existing = document.getElementById('sumDiscount' + suffix);
+    if (existing) return existing.closest('.sum-row');
+    var shipRow = shipEl.closest('.sum-row') || shipEl.parentNode;
+    if (!shipRow || !shipRow.parentNode) return null;
+    var row = document.createElement('div');
+    row.className = (shipRow.classList.contains('between') ? 'between' : 'sum-row') + ' sum-discount';
+    row.innerHTML = '<span id="sumDiscountLabel' + suffix + '">회원 등급할인</span>' +
+      '<span id="sumDiscount' + suffix + '" class="mono-num">—</span>';
+    shipRow.parentNode.insertBefore(row, shipRow);
+    return row;
+  }
   function itemCount(items) {
     return items.reduce(function (n, it) { return n + it.qty; }, 0);
   }
@@ -141,6 +176,8 @@
       body.innerHTML = items.map(function (it) {
         var p = byId(it.id);
         if (!p) return '';
+        var lineNet = mPrice(p.price || 0) * it.qty;
+        var lineGross = (p.price || 0) * it.qty;
         return '<div class="cart-line" data-line="' + p.id + '">' +
           '<img src="' + p.image + '" alt="' + p.name + '">' +
           '<div><b>' + p.name + '</b>' +
@@ -150,19 +187,34 @@
           '<span>' + it.qty + '</span>' +
           '<button type="button" data-qty="1" data-id="' + p.id + '" aria-label="수량 늘리기">+</button>' +
           '</span></div></div>' +
-          '<div style="text-align:right"><b class="mono-num">' + won((p.price || 0) * it.qty) + '원</b>' +
+          '<div style="text-align:right"><b class="mono-num">' + won(lineNet) + '원</b>' +
+          (mRate() > 0 ? '<div class="tiny"><s>' + won(lineGross) + '원</s></div>' : '') +
           '<button type="button" class="tiny" data-remove="' + p.id + '" style="background:none;border:0;color:#8d938f;padding:4px 0">삭제</button></div>' +
           '</div>';
       }).join('');
     }
 
-    var subtotal = cartTotal(items);
+    var gross = cartTotal(items);
+    var subtotal = cartNet(items);
+    var discount = gross - subtotal;
     var ship = shippingFee(subtotal);
     ['', 'Page'].forEach(function (suffix) {
+      var row = ensureDiscountRow(suffix);
       var sumSub = document.getElementById('sumSubtotal' + suffix);
+      var sumDis = document.getElementById('sumDiscount' + suffix);
+      var sumDisLabel = document.getElementById('sumDiscountLabel' + suffix);
       var sumShip = document.getElementById('sumShipping' + suffix);
       var sumTotal = document.getElementById('sumTotal' + suffix);
-      if (sumSub) sumSub.textContent = won(subtotal) + '원';
+      if (sumSub) sumSub.textContent = won(gross) + '원';
+      if (sumDis) {
+        sumDis.textContent = discount > 0 ? '-' + won(discount) + '원' : '—';
+        if (sumDisLabel) {
+          sumDisLabel.textContent = discount > 0
+            ? '회원 등급할인 (' + mGrade().label + ' ' + mRate() + '%)'
+            : '회원 등급할인';
+        }
+        if (row) row.hidden = discount <= 0;
+      }
       if (sumShip) sumShip.textContent = subtotal === 0 ? '—' : (ship ? won(ship) + '원' : '무료');
       if (sumTotal) sumTotal.textContent = won(subtotal + ship) + '원';
     });
@@ -241,11 +293,25 @@
     var p = byId(id);
     if (!p || !modal) return;
     var bags = modal.querySelector('[data-modal-body]');
-    var priceBlock = p.price
-      ? '<div class="price-row"><span class="price">' + won(p.price) + '원</span>' +
-        (p.listPrice ? '<span class="price-was">' + won(p.listPrice) + '원</span>' : '') + '</div>'
-      : '<div class="price-row"><span class="price-quote">가격 문의</span></div>' +
+    var priceBlock;
+    if (p.price) {
+      var rate = mRate();
+      priceBlock =
+        '<div class="price-row" data-member-lock><span class="price' + (rate > 0 ? ' price-member' : '') + '">' + won(mPrice(p.price)) + '원</span>' +
+        (rate > 0
+          ? '<span class="price-was">' + won(p.price) + '원</span><span class="price-off price-grade">' + mGrade().label + ' ' + rate + '%</span>'
+          : (p.listPrice ? '<span class="price-was">' + won(p.listPrice) + '원</span>' : '')) +
+        '</div>' +
+        (rate > 0
+          ? '<p class="tiny" style="margin-top:-6px">' + mGrade().label + ' 등급 할인가가 자동 적용되었습니다.</p>'
+          : (mUser()
+            ? '<p class="tiny" style="margin-top:-6px">현재 등급(' + mGrade().label + ')은 정상가로 주문됩니다.</p>'
+            : '<p class="tiny" style="margin-top:-6px"><a href="member.html" style="text-decoration:underline">회원가입</a> 후 회사가 등급을 부여하면 대리점 30% · 총판 50% 할인가가 적용됩니다.</p>'));
+    } else {
+      priceBlock =
+        '<div class="price-row" data-member-lock><span class="price-quote">가격 문의</span></div>' +
         (p.listPrice ? '<p class="tiny" style="margin-top:-6px">제조사 표시 소비자가 ' + won(p.listPrice) + '원 · 판매가는 카카오톡 채널로 문의해 주세요</p>' : '');
+    }
     var actionBlock = p.price
       ? '<button type="button" class="btn btn-primary" data-add-cart data-id="' + p.id + '">장바구니 담기</button>'
       : '<a class="btn btn-kakao" data-kakao href="' + (CFG.kakaoChannelUrl || '#') + '" target="_blank" rel="noopener">카카오톡 채널로 가격 문의</a>';
@@ -334,16 +400,24 @@
   /* ── 주문서 ─────────────────────────────────────────── */
   function orderSummary(form) {
     var items = readCart();
-    var subtotal = cartTotal(items);
+    var gross = cartTotal(items);
+    var subtotal = cartNet(items);
+    var discount = gross - subtotal;
     var ship = shippingFee(subtotal);
     var d = new FormData(form);
     var lines = [];
     lines.push('[효소세상 주문서]');
     items.forEach(function (it) {
       var p = byId(it.id);
-      if (p) lines.push('· ' + p.name + ' / ' + p.option + ' / ' + it.qty + '개 / ' + won((p.price || 0) * it.qty) + '원');
+      if (!p) return;
+      var line = '· ' + p.name + ' / ' + p.option + ' / ' + it.qty + '개 / ' + won(mPrice(p.price || 0) * it.qty) + '원';
+      if (discount > 0) line += ' (정가 ' + won((p.price || 0) * it.qty) + '원)';
+      lines.push(line);
     });
-    lines.push('상품금액 ' + won(subtotal) + '원 / 배송비 ' + (ship ? won(ship) + '원' : '무료') + ' / 합계 ' + won(subtotal + ship) + '원');
+    lines.push('상품금액 ' + won(gross) + '원');
+    if (discount > 0) lines.push('회원 등급할인 (' + mGrade().label + ' ' + mRate() + '%) -' + won(discount) + '원');
+    lines.push('배송비 ' + (ship ? won(ship) + '원' : '무료') + ' / 합계 ' + won(subtotal + ship) + '원');
+    if (mUser()) lines.push('회원 ' + mUser().name + ' (' + mUser().email + ' · ' + mGrade().label + (mRate() > 0 ? ' ' + mRate() + '%' : '') + ')');
     lines.push('받는 분 ' + (d.get('name') || ''));
     lines.push('연락처 ' + (d.get('phone') || ''));
     lines.push('주소 ' + (d.get('address') || ''));
@@ -375,6 +449,25 @@
   });
 
   /* ── 일반 문의 폼 ───────────────────────────────────── */
+  /* 로그인한 회원 정보로 주문서 인적사항을 미리 채웁니다. */
+  function prefillMember() {
+    var u = mUser();
+    if (!u) return;
+    $$('form[data-order-form]').forEach(function (f) {
+      var n = f.querySelector('[name="name"]');
+      var ph = f.querySelector('[name="phone"]');
+      var em = f.querySelector('[name="email"]');
+      if (n && !n.value) n.value = u.name || '';
+      if (ph && !ph.value) ph.value = u.phone || '';
+      if (em && !em.value) em.value = u.email || '';
+    });
+  }
+  prefillMember();
+  document.addEventListener('enzyme:member', function () {
+    renderCart();
+    prefillMember();
+  });
+
   $$('form[data-contact-form]').forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();

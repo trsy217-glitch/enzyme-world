@@ -3,6 +3,7 @@ Allow: /
 Disallow: /partner-login.html
 Disallow: /partner-dashboard.html
 Disallow: /admin-dashboard.html
+Disallow: /admin-members.html
 
 # AI 검색·생성 엔진 크롤러 허용 (GEO)
 User-agent: GPTBot
@@ -10,6 +11,7 @@ Allow: /
 Disallow: /partner-login.html
 Disallow: /partner-dashboard.html
 Disallow: /admin-dashboard.html
+Disallow: /admin-members.html
 
 User-agent: OAI-SearchBot
 Allow: /
@@ -22,6 +24,7 @@ Allow: /
 Disallow: /partner-login.html
 Disallow: /partner-dashboard.html
 Disallow: /admin-dashboard.html
+Disallow: /admin-members.html
 
 User-agent: Claude-Web
 Allow: /
@@ -34,6 +37,7 @@ Allow: /
 Disallow: /partner-login.html
 Disallow: /partner-dashboard.html
 Disallow: /admin-dashboard.html
+Disallow: /admin-members.html
 
 User-agent: Perplexity-User
 Allow: /
