@@ -379,6 +379,10 @@ tr:last-child td { border-bottom: 0; }
 .member-grade[data-grade="master"], .grade-master { background: #ece1f6; color: #4a2c63; }
 .member-grade[data-grade="normal"], .grade-normal { background: var(--surface-3); color: #3d443f; }
 .price-grade { background: #dcefe6 !important; color: #0f5132 !important; }
+.link-btn {
+  border: 0; background: none; padding: 0; font: inherit; color: var(--primary);
+  text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
 .price-member { color: #0b5a3c; }
 .sum-row.sum-discount { color: #0f5132; }
 .sum-row[hidden] { display: none; }

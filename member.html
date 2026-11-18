@@ -104,8 +104,9 @@
             <input id="login-pw" name="password" type="password" autocomplete="current-password" required>
           </div>
           <button class="btn btn-primary btn-block" type="submit" data-login-submit>로그인</button>
+          <button class="btn btn-line btn-block" type="button" data-google-login style="margin-top:10px">Google 계정으로 로그인</button>
           <div class="form-result" data-login-result role="status"></div>
-          <p class="form-note">회원 정보는 현재 이 기기의 브라우저에만 저장되는 시험 운영 단계입니다. 다른 기기에서는 다시 가입해 주세요.</p>
+          <p class="form-note"><button type="button" class="link-btn" data-reset-pw>비밀번호를 잊으셨나요?</button> 가입한 이메일로 재설정 메일을 보내 드립니다.</p>
         </form>
 
         <form class="form card hide" data-join-form novalidate>
@@ -134,7 +135,9 @@
           </div>
           <label class="checkbox"><input type="checkbox" name="agree" required> 회원 관리(이름·연락처·이메일)를 위한 개인정보 수집·이용에 동의합니다. 등급 부여·주문 안내 목적으로만 사용합니다. (필수)</label>
           <button class="btn btn-primary btn-block" type="submit" data-join-submit>가입하고 일반회원으로 시작</button>
+          <button class="btn btn-line btn-block" type="button" data-google-join style="margin-top:10px">Google 계정으로 시작</button>
           <div class="form-result" data-join-result role="status"></div>
+          <p class="form-note">Google 계정으로 시작하면 이름·이메일만으로 일반회원 가입이 되고, 연락처는 '내 회원정보'에서 추가할 수 있습니다.</p>
         </form>
       </div>
 
@@ -167,7 +170,7 @@
     </div>
 
     <div class="notice mt-24">
-      <span><b>시험 운영 안내</b>현재 회원 기능은 서버 없이 브라우저 저장소(localStorage)로 동작합니다. 가입 정보와 등급은 이 브라우저에만 남고 다른 기기와 공유되지 않습니다. 실제 회원 관리(서버 저장·등급 검증)는 다음 단계에서 연결합니다.</span>
+      <span><b>회원 정보 보관 안내</b>회원 정보(이름·연락처·이메일·등급)는 회사가 관리하는 서버(Firebase)에 저장되며, 어느 기기에서든 같은 계정으로 로그인하면 등급과 할인가가 그대로 적용됩니다. 등급은 회원이 직접 바꿀 수 없고 회사만 부여·변경합니다. 개인정보는 회원 관리·등급 부여·주문 안내 목적으로만 사용합니다.</span>
     </div>
   </div>
 </section>
@@ -259,6 +262,9 @@
 </div>
 <div class="toast" id="toast" role="status"></div>
 <script src="assets/js/config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script src="assets/js/member.js"></script>
 <script src="assets/js/site.js"></script>
 </body>
@@ -399,13 +405,58 @@
   var logout = $('[data-logout]');
   if (logout) {
     logout.addEventListener('click', function () {
-      M.logout();
-      toast('로그아웃되었습니다');
+      M.logout().then(function () {
+        toast('로그아웃되었습니다');
+        paint();
+      });
+    });
+  }
+
+  function googleSignIn(btn, res) {
+    clearResult(res);
+    if (btn) btn.disabled = true;
+    M.signInWithGoogle().then(function (out) {
+      toast((out.profile && out.profile.name ? out.profile.name + ' 님, ' : '') + '로그인되었습니다');
+      if (joinForm) joinForm.reset();
       paint();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }).catch(function (err) {
+      showResult(res, err.message || 'Google 로그인하지 못했습니다.', true);
+    }).then(function () { if (btn) btn.disabled = false; });
+  }
+
+  $$('[data-google-login]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      googleSignIn(btn, $('[data-login-result]', loginForm));
+    });
+  });
+  $$('[data-google-join]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      googleSignIn(btn, $('[data-join-result]', joinForm));
+    });
+  });
+
+  var resetBtn = $('[data-reset-pw]');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      var emailInput = $('#login-email');
+      var email = emailInput ? emailInput.value : '';
+      if (!email) { showResult($('[data-login-result]', loginForm), '로그인 칸에 이메일을 먼저 적어 주세요.', true); return; }
+      M.resetPassword(email).then(function () {
+        showResult($('[data-login-result]', loginForm), email + ' 주소로 비밀번호 재설정 메일을 보냈습니다. 메일함을 확인해 주세요.');
+      }).catch(function (err) {
+        showResult($('[data-login-result]', loginForm), err.message || '재설정 메일을 보내지 못했습니다.', true);
+      });
     });
   }
 
   document.addEventListener('enzyme:member', paint);
   paint();
+  M.ready().then(function () {
+    paint();
+    if (M.sdkError()) {
+      showResult($('[data-login-result]', loginForm), '회원 서버에 연결하지 못했습니다. 잠시 후 새로고침해 주세요.', true);
+    }
+  });
 })();
 </script>

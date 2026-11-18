@@ -28,7 +28,8 @@
 - `assets/css/site.css` — 전체 스타일 (디자인 토큰은 파일 상단 `:root`)
 - `assets/js/config.js` — 전화·이메일·배송비·카카오 채널 주소·폼 주소 설정
 - `assets/js/site.js` — 메뉴, 장바구니, 제품 필터/검색, 상세 보기, 주문서
-- `assets/js/member.js` — 회원가입·로그인, 등급(일반회원/대리점/총판), 등급별 할인가 계산, 관리자 등급 변경
+- `assets/js/member.js` — 회원가입·로그인(Firebase Auth), 등급(일반회원/대리점/총판), 등급별 할인가 계산, 관리자 등급 변경(Firestore)
+- `firestore.rules` · `firebase.json` — Firestore 보안 규칙과 Firebase CLI 설정
 - `assets/images/` — 로고(`brand-01.svg`), 제품 사진, 원료 이미지, OG 이미지
 
 ## 제품·가격 고치기
@@ -50,23 +51,45 @@
   주문서 텍스트에 할인가가 자동 반영됩니다. `가격 문의` 상품은 할인 대상이 아닙니다.
   (할인가는 10원 단위 내림, 배송비 무료 기준 50,000원은 할인 적용 금액 기준)
 - 관리자 화면 주소: `https://enzyme-world.vercel.app/admin-members.html`
-  입장 코드는 `assets/js/config.js`의 `member.adminCode`(기본 `enzyme2026admin`)입니다.
 - 등급·할인율을 바꾸려면 `assets/js/member.js`의 `GRADES` 배열을 고칩니다.
 
-### 현재 구현의 한계 (운영 전 확인)
+## 백엔드 (Firebase Authentication + Cloud Firestore)
 
-현재 사이트는 서버가 없는 정적 사이트이므로 회원 정보를 **브라우저 localStorage**에만 저장합니다.
+회원 정보는 회사가 관리하는 Firebase 프로젝트 **`enzyme-world`** 에 저장됩니다.
 
-| 항목 | 현재 | 실제 운영에 필요 |
-| --- | --- | --- |
-| 회원 저장 | 가입한 브라우저에만 저장 | 서버 DB(Firebase Firestore, Supabase 등) |
-| 관리자 화면 | 그 브라우저에 저장된 회원만 표시 | 서버 회원 목록 + 관리자 계정 인증 |
-| 등급·할인 | 브라우저에서 계산 | 주문 접수 시 서버에서 등급·할인 재검증 |
-| 비밀번호 | PBKDF2 해시(브라우저 저장) | 서버 인증(해시는 서버에만 보관) |
-| 관리자 코드 | JS에 포함된 코드(누구나 열람 가능) | 서버 로그인·권한 확인 |
+| 항목 | 내용 |
+| --- | --- |
+| 프로젝트 | `enzyme-world` (Spark 무료 요금제, Firestore 위치 `asia-northeast3` 서울) |
+| 웹 앱 설정 | `assets/js/config.js`의 `firebase` 블록 (사이트에 공개되는 식별자) |
+| 로그인 방법 | 이메일·비밀번호, Google |
+| 회원 문서 | `members/{uid}` — `name`, `phone`, `email`, `grade`, `joinedAt`, `updatedAt`, `history[]` |
+| 관리자 목록 | `config/admin` 문서의 `emails` 배열 (이메일 인증이 끝난 계정만 관리자로 인정) |
+| 보안 규칙 | `firestore.rules` — Firestore 콘솔 > 규칙에 같은 내용이 게시되어 있음 |
 
-즉 지금은 회원 흐름과 할인 계산을 눈으로 확인하는 **시험 운영 단계**입니다. 실제 회원이
-여러 기기에서 가입·로그인하고 회사가 등급을 관리하려면 위 백엔드가 먼저 연결되어야 합니다.
+- 회원은 **본인 문서만** 읽을 수 있고, **등급(grade)은 본인이 바꿀 수 없습니다**
+  (이름·연락처만 수정 가능). 등급 변경은 보안 규칙이 관리자 계정에만 허용합니다.
+- 관리자 등록·해제: Firebase 콘솔 > Firestore > `config/admin` > `emails` 배열에
+  회사 관리자 이메일을 넣거나 뺍니다. 관리자는 **Google 로그인(이메일 인증 완료)** 으로
+  `admin-members.html`에 들어갑니다.
+- 비밀번호는 Firebase Authentication이 보관하며 사이트 코드에는 남지 않습니다.
+- 규칙을 고칠 때는 `firestore.rules`를 수정한 뒤 콘솔의 규칙 편집기에 같은 내용을
+  붙여넣고 게시합니다(또는 `firebase deploy --only firestore:rules`).
+- Firebase SDK(compat)는 `member.js`가 처음 필요할 때 불러옵니다. `member.html`과
+  `admin-members.html`에는 미리 `<script>`로 넣어 두었습니다.
+
+### 운영 전 확인
+
+| 항목 | 현재 |
+| --- | --- |
+| 회원 저장 | Firebase Firestore (모든 기기에서 같은 계정으로 로그인하면 같은 등급) |
+| 관리자 화면 | 관리자 계정 로그인 + 서버(보안 규칙) 검증 |
+| 등급·할인 | DB의 등급을 읽어 화면에 적용. 주문은 카카오톡으로 받으므로 접수 시 사람이 확인 |
+| 비밀번호 | Firebase Authentication (사이트에 해시 없음) |
+| 관리자 코드 | 없음(제거). 관리자 계정 + `config/admin` 목록으로 대체 |
+
+> 주문 금액은 회원 등급을 기준으로 브라우저에서 계산됩니다. 카카오톡으로 주문을 받아
+> 확인하는 단계에서 회원 이메일과 등급을 `admin-members.html`에서 다시 확인해 주세요.
+> 결제를 자동화(토스페이먼츠 등)할 때는 서버에서 금액을 다시 계산해야 합니다.
 
 ## 설정
 

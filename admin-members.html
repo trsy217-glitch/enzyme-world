@@ -53,19 +53,35 @@
     <div class="section-head">
       <span class="eyebrow">Company Admin</span>
       <h1 class="h1" style="font-size:34px">회원 등급 관리</h1>
-      <p class="lead" style="font-size:16px">가입한 회원을 확인하고 <b>일반회원 · 대리점(30%) · 총판(50%)</b> 자격을 부여·변경하는 회사 관리 화면입니다. 등급을 바꾸면 해당 회원의 제품 가격·장바구니·주문서 할인가가 바로 바뀝니다.</p>
+      <p class="lead" style="font-size:16px">가입한 회원을 확인하고 <b>일반회원 · 대리점(30%) · 총판(50%)</b> 자격을 부여·변경하는 회사 관리 화면입니다. 등급을 바꾸면 해당 회원의 제품 가격·장바구니·주문서 할인가가 바로 바뀝니다. 관리자로 등록된 계정으로 로그인해야 합니다.</p>
     </div>
 
     <div id="adminGate" class="card" style="max-width:560px; padding:26px">
       <form class="form" data-admin-form novalidate>
+        <h2 class="h3" style="font-size:19px">회사 관리자 로그인</h2>
         <div class="field">
-          <label for="admin-code">관리자 코드</label>
-          <input id="admin-code" name="code" type="password" autocomplete="current-password" required placeholder="회사 관리자 코드">
+          <label for="admin-email">관리자 이메일</label>
+          <input id="admin-email" name="email" type="email" autocomplete="username" required placeholder="example@email.com">
         </div>
-        <button class="btn btn-primary" type="submit">관리자 화면 열기</button>
+        <div class="field">
+          <label for="admin-code">비밀번호</label>
+          <input id="admin-code" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="btn btn-primary" type="submit" data-admin-submit>관리자 화면 열기</button>
+        <button class="btn btn-line btn-block" type="button" data-admin-google style="margin-top:10px">Google 계정으로 로그인</button>
         <div class="form-result" data-admin-result role="status"></div>
-        <p class="form-note">회사 담당자만 사용하는 화면입니다. 코드는 <code>assets/js/config.js</code>의 <code>member.adminCode</code>에서 바꿀 수 있습니다.</p>
+        <p class="form-note">회사 관리자로 등록된 계정만 등급을 바꿀 수 있습니다. 관리자 등록은 Firebase 콘솔의 <code>config/admin</code> 문서 <code>emails</code> 목록에서 합니다.</p>
       </form>
+    </div>
+
+    <div id="adminDenied" class="card hide" style="max-width:560px; padding:26px">
+      <h2 class="h3" style="font-size:19px">관리자 권한이 없습니다</h2>
+      <p class="small"><b data-denied-email>—</b> 계정으로 로그인되어 있습니다. 이 계정은 회사 관리자로 등록되어 있지 않거나 이메일 인증이 끝나지 않았습니다.</p>
+      <p class="small">회사 관리자 계정으로 다시 로그인하거나, 관리자 등록을 회사에 요청해 주세요.</p>
+      <div class="row" style="margin-top:10px">
+        <button class="btn btn-line btn-sm" type="button" data-admin-signout>로그아웃</button>
+        <a class="btn btn-line btn-sm" href="member.html">회원 화면으로</a>
+      </div>
     </div>
 
     <div id="adminConsole" class="hide">
@@ -104,7 +120,7 @@
       </div>
 
       <div class="notice mt-24">
-        <span><b>시험 운영 안내</b>이 화면은 현재 브라우저(localStorage)에 저장된 회원만 보여 줍니다. 다른 기기·다른 브라우저에서 가입한 회원은 목록에 나오지 않고, 그 회원에게는 등급이 전달되지 않습니다. 실제 운영 전에는 서버 DB와 서버 측 등급 검증으로 바꿔야 합니다.</span>
+        <span><b>데이터 저장 위치</b>회원 목록·등급·변경 이력은 Firebase Firestore에 저장됩니다. 다른 기기에서 가입한 회원도 목록에 나오고, 등급을 바꾸면 그 회원이 어떤 기기에서 로그인해도 할인가가 적용됩니다. 등급 변경은 Firestore 보안 규칙이 관리자 계정에만 허용합니다.</span>
       </div>
     </div>
   </div>
@@ -197,6 +213,9 @@
 </div>
 <div class="toast" id="toast" role="status"></div>
 <script src="assets/js/config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script src="assets/js/member.js"></script>
 <script src="assets/js/site.js"></script>
 </body>
@@ -210,12 +229,16 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var gate = $('#adminGate');
+  var denied = $('#adminDenied');
   var consoleEl = $('#adminConsole');
   var gateForm = $('[data-admin-form]');
   var rows = $('[data-admin-rows]');
   var empty = $('#adminEmpty');
   var search = $('#adminSearch');
   var esc = M.esc;
+  var members = [];
+  var loading = false;
+  var view = '';
 
   function toast(msg) {
     var el = document.getElementById('toast');
@@ -224,6 +247,17 @@
     el.classList.add('is-open');
     clearTimeout(toast._t);
     toast._t = setTimeout(function () { el.classList.remove('is-open'); }, 2600);
+  }
+  function showResult(el, msg, isError) {
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.toggle('is-error', !!isError);
+    el.classList.add('is-open');
+  }
+  function clearResult(el) {
+    if (!el) return;
+    el.textContent = '';
+    el.classList.remove('is-open', 'is-error');
   }
   function fmtDate(iso, withTime) {
     if (!iso) return '—';
@@ -240,16 +274,38 @@
     }).join('');
   }
 
+  function setView(which) {
+    view = which;
+    if (gate) gate.classList.toggle('hide', which !== 'gate');
+    if (denied) denied.classList.toggle('hide', which !== 'denied');
+    if (consoleEl) consoleEl.classList.toggle('hide', which !== 'console');
+  }
+
+  function loadMembers() {
+    if (loading || !M.isAdmin()) return;
+    loading = true;
+    var cnt = $('[data-admin-count]');
+    if (cnt) cnt.textContent = '회원 목록을 불러오는 중…';
+    M.members().then(function (list) {
+      members = Array.isArray(list) ? list : [];
+      render();
+    }).catch(function (err) {
+      toast(err.message || '회원 목록을 불러오지 못했습니다');
+      if (cnt) cnt.textContent = '회원 목록을 불러오지 못했습니다';
+      if (rows) rows.innerHTML = '';
+      if (empty) empty.classList.add('hide');
+    }).then(function () { loading = false; });
+  }
+
   function render() {
-    var list = M.members();
     var q = (search && search.value || '').trim().toLowerCase();
-    var shown = list.filter(function (m) {
+    var shown = members.filter(function (m) {
       if (!q) return true;
-      return (m.name + ' ' + m.email + ' ' + (m.phone || '')).toLowerCase().indexOf(q) > -1;
+      return ((m.name || '') + ' ' + (m.email || '') + ' ' + (m.phone || '')).toLowerCase().indexOf(q) > -1;
     });
 
-    var counts = { all: list.length, normal: 0, dealer: 0, master: 0 };
-    list.forEach(function (m) {
+    var counts = { all: members.length, normal: 0, dealer: 0, master: 0 };
+    members.forEach(function (m) {
       var k = m.grade === 'dealer' || m.grade === 'master' ? m.grade : 'normal';
       counts[k] += 1;
     });
@@ -258,50 +314,73 @@
       if (el) el.textContent = counts[k];
     });
     var cnt = $('[data-admin-count]');
-    if (cnt) cnt.textContent = '표시 ' + shown.length + '명 · 전체 ' + list.length + '명';
+    if (cnt) cnt.textContent = '표시 ' + shown.length + '명 · 전체 ' + members.length + '명';
 
-    if (!list.length) {
-      rows.innerHTML = '';
+    if (!members.length) {
+      if (rows) rows.innerHTML = '';
       if (empty) empty.classList.remove('hide');
       return;
     }
     if (empty) empty.classList.add('hide');
 
-    rows.innerHTML = shown.map(function (m) {
+    if (rows) rows.innerHTML = shown.map(function (m) {
       var g = M.gradeByKey(m.grade);
       var last = (m.history || []).slice(-1)[0];
-      return '<tr data-email="' + esc(m.email) + '">' +
+      return '<tr data-uid="' + esc(m.uid) + '">' +
         '<td><b>' + esc(m.name) + '</b><div class="tiny">' + esc(m.email) + '</div></td>' +
         '<td class="mono-num">' + esc(m.phone || '—') + '</td>' +
         '<td class="mono-num">' + fmtDate(m.joinedAt) + '</td>' +
         '<td><span class="member-grade" data-grade="' + g.key + '">' + esc(g.short) + '</span></td>' +
-        '<td><label class="sr-only" for="grade-' + esc(m.email) + '">' + esc(m.name) + ' 등급</label>' +
-          '<select id="grade-' + esc(m.email) + '" data-grade-select>' + gradeOptions(g.key) + '</select></td>' +
+        '<td><label class="sr-only" for="grade-' + esc(m.uid) + '">' + esc(m.name) + ' 등급</label>' +
+          '<select id="grade-' + esc(m.uid) + '" data-grade-select>' + gradeOptions(g.key) + '</select></td>' +
         '<td class="tiny">' + (last ? fmtDate(last.at, true) + '<br>' + esc(last.by || '') : '—') + '</td>' +
         '</tr>';
     }).join('');
   }
 
-  function openConsole() {
-    if (gate) gate.classList.add('hide');
-    if (consoleEl) consoleEl.classList.remove('hide');
-    render();
+  function paint() {
+    var u = M.authUser();
+    if (!u) { setView('gate'); return; }
+    if (!M.isAdmin()) {
+      var el = $('[data-denied-email]');
+      if (el) el.textContent = u.email || '—';
+      setView('denied');
+      return;
+    }
+    var entered = view !== 'console';
+    setView('console');
+    if (entered || !members.length) loadMembers();
+  }
+
+  function signIn(promise, res) {
+    clearResult(res);
+    promise.then(function () {
+      toast('로그인되었습니다');
+      if (gateForm) gateForm.reset();
+      paint();
+    }).catch(function (err) {
+      showResult(res, err.message || '로그인하지 못했습니다.', true);
+    });
   }
 
   if (gateForm) {
     gateForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var res = $('[data-admin-result]', gateForm);
-      var code = new FormData(gateForm).get('code');
-      if (M.unlockAdmin(code)) {
-        if (res) { res.textContent = ''; res.classList.remove('is-open', 'is-error'); }
-        gateForm.reset();
-        openConsole();
-        toast('관리자 화면을 열었습니다');
-      } else if (res) {
-        res.textContent = '관리자 코드가 맞지 않습니다.';
-        res.classList.add('is-open', 'is-error');
-      }
+      var d = new FormData(gateForm);
+      var btn = $('[data-admin-submit]', gateForm);
+      if (btn) btn.disabled = true;
+      signIn(M.login(d.get('email'), d.get('password')).then(function () { if (btn) btn.disabled = false; }), res);
+      setTimeout(function () { if (btn) btn.disabled = false; }, 1500);
+    });
+  }
+
+  var googleBtn = $('[data-admin-google]');
+  if (googleBtn) {
+    googleBtn.addEventListener('click', function () {
+      var res = $('[data-admin-result]', gateForm);
+      googleBtn.disabled = true;
+      signIn(M.signInWithGoogle().then(function (out) { googleBtn.disabled = false; return out; }, function (err) { googleBtn.disabled = false; throw err; }), res);
     });
   }
 
@@ -310,36 +389,50 @@
       var sel = e.target.closest('[data-grade-select]');
       if (!sel) return;
       var tr = sel.closest('tr');
-      var email = tr.getAttribute('data-email');
+      var uid = tr.getAttribute('data-uid');
       var gradeKey = sel.value;
-      try {
-        var m = M.setGrade(email, gradeKey);
-        var g = M.gradeByKey(m.grade);
-        toast(m.name + ' 님 등급을 ' + g.label + (g.rate ? ' ' + g.rate + '%' : '') + '(으)로 변경했습니다');
-      } catch (err) {
+      sel.disabled = true;
+      M.setGrade(uid, gradeKey).then(function (updated) {
+        var g = M.gradeByKey(updated.grade);
+        toast(updated.name + ' 님 등급을 ' + g.label + (g.rate ? ' ' + g.rate + '%' : '') + '(으)로 변경했습니다');
+        for (var i = 0; i < members.length; i++) if (members[i].uid === uid) members[i] = updated;
+        render();
+      }).catch(function (err) {
         toast(err.message || '등급을 바꾸지 못했습니다');
-      }
-      render();
+        render();
+      }).then(function () { sel.disabled = false; });
     });
   }
 
   if (search) search.addEventListener('input', render);
 
   var refresh = $('[data-admin-refresh]');
-  if (refresh) refresh.addEventListener('click', function () { render(); toast('회원 목록을 새로 읽었습니다'); });
+  if (refresh) refresh.addEventListener('click', function () {
+    members = [];
+    M.refresh().then(function () { paint(); loadMembers(); });
+    toast('회원 목록을 새로 읽었습니다');
+  });
 
-  var lock = $('[data-admin-lock]');
-  if (lock) lock.addEventListener('click', function () {
-    M.lockAdmin();
-    if (consoleEl) consoleEl.classList.add('hide');
-    if (gate) gate.classList.remove('hide');
-    toast('관리자 화면을 잠갔습니다');
+  $$('[data-admin-lock]').forEach(function (lock) {
+    lock.addEventListener('click', function () {
+      M.logout().then(function () {
+        members = [];
+        setView('gate');
+        toast('로그아웃했습니다');
+      });
+    });
+  });
+  $$('[data-admin-signout]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      M.logout().then(function () { setView('gate'); });
+    });
   });
 
   document.addEventListener('enzyme:member', function () {
-    if (consoleEl && !consoleEl.classList.contains('hide')) render();
+    if (view === 'console' && !M.isAdmin()) { members = []; }
+    paint();
   });
 
-  if (M.isAdmin()) openConsole();
+  M.ready().then(paint);
 })();
 </script>

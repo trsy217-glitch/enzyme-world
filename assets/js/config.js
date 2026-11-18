@@ -18,11 +18,20 @@ window.ENZYME_CONFIG = {
     carrier: '한진택배',
     note: '기본 배송비 4,000원 · 50,000원 이상 무료배송 · 제주·도서지역 추가 6,000원'
   },
-  // 회원 등급 — 가입 기본 등급은 일반회원(할인 0%), 대리점 30%·총판 50%는 회사가 부여합니다.
-  // adminCode는 회사 관리자 화면(admin-members.html) 입장 코드입니다. 시험 운영용이며 화면에 전달되므로
-  // 실제 보안 수단이 아닙니다. 운영 전에는 서버 인증으로 바꾸고 이 값을 비우세요.
-  member: {
-    adminCode: 'enzyme2026admin'
+  /* Firebase 웹 앱 설정 (Firebase 콘솔 > 프로젝트 설정 > 내 앱).
+     이 값은 사이트 소스에 그대로 노출되는 공개 식별자입니다. 실제 접근 제어는
+     Firestore 보안 규칙(firestore.rules)이 담당합니다. */
+  firebase: {
+    apiKey: 'AIzaSyCHWnOvSXiuAIpLogCJlRYLpeds1PjqYHM',
+    authDomain: 'enzyme-world.firebaseapp.com',
+    projectId: 'enzyme-world',
+    storageBucket: 'enzyme-world.firebasestorage.app',
+    messagingSenderId: '865789985160',
+    appId: '1:865789985160:web:adbc92fcfa2d81c9957a3d'
   },
+  /* 회원 등급 — 가입 기본 등급은 일반회원(할인 0%), 대리점 30%·총판 50%는 회사가 부여합니다.
+     관리자 권한은 Firestore의 config/admin 문서에 등록된 '이메일 인증이 끝난 계정'에게만
+     부여됩니다(관리자 코드 없음). 등록·변경은 Firebase 콘솔에서 합니다. */
+  member: {},
   bankNote: '입금 계좌는 주문 확인 후 카카오톡 채널로 개별 안내드립니다.'
 };
