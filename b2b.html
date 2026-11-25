@@ -56,29 +56,184 @@
 {
  "@context": "https://schema.org",
  "@type": "Organization",
+ "@id": "https://enzyme-world.vercel.app/#retailer",
  "name": "알프스(AL.F.S)",
+ "legalName": "알프스(AL.F.S)",
+ "alternateName": [
+  "ALFS",
+  "AL.F.S"
+ ],
  "url": "https://enzyme-world.vercel.app/",
  "description": "효소세상 제품의 유통사. 주문·배송·교환·환불과 카카오톡 채널 상담을 담당한다.",
  "email": "trsy217@gmail.com",
- "identifier": "523-70-00224",
+ "identifier": [
+  {
+   "@type": "PropertyValue",
+   "name": "사업자등록번호",
+   "value": "523-70-00224"
+  },
+  {
+   "@type": "PropertyValue",
+   "name": "통신판매업 신고번호",
+   "value": "제 2025-서울마포-1175호"
+  }
+ ],
  "address": {
   "@type": "PostalAddress",
   "streetAddress": "서울특별시 마포구 월드컵북로 434, 지하 1층 136호(상암동, 상암 IT Tower)",
-  "addressLocality": "서울특별시",
-  "addressRegion": "서울",
+  "addressLocality": "마포구",
+  "addressRegion": "서울특별시",
   "addressCountry": "KR"
  },
  "contactPoint": [
   {
    "@type": "ContactPoint",
    "contactType": "customer service",
-   "url": "http://pf.kakao.com/_Mcvfb",
+   "url": "https://pf.kakao.com/_Mcvfb/chat",
+   "email": "trsy217@gmail.com",
+   "availableLanguage": [
+    "ko"
+   ],
+   "areaServed": "KR",
+   "hoursAvailable": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+     "Monday",
+     "Tuesday",
+     "Wednesday",
+     "Thursday",
+     "Friday"
+    ],
+    "opens": "10:00",
+    "closes": "18:00"
+   }
+  }
+ ],
+ "areaServed": {
+  "@type": "Country",
+  "name": "대한민국"
+ }
+}
+</script>
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "@id": "https://enzyme-world.vercel.app/b2b.html#webpage",
+ "url": "https://enzyme-world.vercel.app/b2b.html",
+ "name": "도매·총판 문의 — 효소세상 제품 유통 상담 | 효소세상",
+ "description": "효소세상 발효 효소·발효식품 도매와 총판 상담. 사업자 정보와 희망 수량을 남기면 조건을 안내합니다. 상담은 카카오톡 채널로 진행합니다.",
+ "inLanguage": "ko-KR",
+ "isPartOf": {
+  "@id": "https://enzyme-world.vercel.app/#website"
+ },
+ "about": [
+  {
+   "@id": "https://enzyme-world.vercel.app/#manufacturer"
+  },
+  {
+   "@id": "https://enzyme-world.vercel.app/#retailer"
+  }
+ ],
+ "primaryImageOfPage": {
+  "@type": "ImageObject",
+  "url": "https://enzyme-world.vercel.app/assets/images/og-image.jpg"
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Service",
+ "@id": "https://enzyme-world.vercel.app/b2b.html#service",
+ "name": "효소세상 제품 도매·총판 공급 상담",
+ "serviceType": "발효식품·화장품 도매 및 총판 공급 상담",
+ "description": "매장·온라인에서 효소세상 제품을 판매하려는 사업자를 위한 도매·총판 상담. 사업자 정보와 희망 수량을 남기면 공급 조건을 안내합니다.",
+ "provider": {
+  "@id": "https://enzyme-world.vercel.app/#retailer"
+ },
+ "areaServed": {
+  "@type": "Country",
+  "name": "대한민국"
+ },
+ "audience": {
+  "@type": "BusinessAudience",
+  "name": "매장·온라인 판매 사업자"
+ },
+ "availableChannel": {
+  "@type": "ServiceChannel",
+  "serviceUrl": "https://enzyme-world.vercel.app/b2b.html",
+  "serviceLocation": {
+   "@type": "VirtualLocation",
+   "url": "https://pf.kakao.com/_Mcvfb/chat"
+  }
+ }
+}
+</script>
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "@id": "https://enzyme-world.vercel.app/#manufacturer",
+ "name": "효소세상",
+ "alternateName": [
+  "Enzyme World",
+  "(주)효소세상"
+ ],
+ "url": "https://enzyme-world.vercel.app/",
+ "logo": {
+  "@type": "ImageObject",
+  "url": "https://enzyme-world.vercel.app/assets/images/brand-01.svg"
+ },
+ "image": "https://enzyme-world.vercel.app/assets/images/og-image.jpg",
+ "description": "미생물 발효 효소와 발효식품을 만드는 제조사. 1.3fit 클렌즈, FED 5일·10일 효소해독요법, 발효식품과 천연화장품까지 17종을 생산한다.",
+ "sameAs": [
+  "http://pf.kakao.com/_Mcvfb"
+ ],
+ "areaServed": {
+  "@type": "Country",
+  "name": "대한민국"
+ },
+ "knowsAbout": [
+  "발효 효소",
+  "미생물 발효 음료",
+  "산야초 발효 추출액",
+  "1.3fit 클렌즈",
+  "FED 효소해독요법",
+  "클린바이옴",
+  "자이모젠",
+  "천연화장품"
+ ],
+ "contactPoint": [
+  {
+   "@type": "ContactPoint",
+   "contactType": "customer service",
+   "url": "https://pf.kakao.com/_Mcvfb/chat",
    "availableLanguage": [
     "ko"
    ],
    "areaServed": "KR"
   }
  ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebSite",
+ "@id": "https://enzyme-world.vercel.app/#website",
+ "url": "https://enzyme-world.vercel.app/",
+ "name": "효소세상",
+ "alternateName": [
+  "Enzyme World",
+  "효소세상 공식몰"
+ ],
+ "inLanguage": "ko-KR",
+ "publisher": {
+  "@id": "https://enzyme-world.vercel.app/#manufacturer"
+ }
 }
 </script>
 </head>
