@@ -101,18 +101,34 @@
     }
   });
 
+  /* ── 카카오톡 채널 1:1 채팅 링크 ([data-kakao-chat]) ──
+     대리점·도매 상담은 채널 홈이 아니라 채팅방으로 바로 들어갑니다. */
+  var kakaoChatUrl = function () { return CFG.kakaoChatUrl || CFG.kakaoChannelUrl || ''; };
+  $$('[data-kakao-chat]').forEach(function (a) {
+    var url = kakaoChatUrl();
+    if (url) {
+      a.setAttribute('href', url);
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    } else {
+      a.setAttribute('href', '#');
+      a.setAttribute('title', '카카오톡 채널 주소를 준비 중입니다');
+    }
+  });
+
   // 동적으로 그린(상세 보기 모달 등) 카카오 링크도 항상 동작하도록 위임 처리
   document.addEventListener('click', function (e) {
-    var k = e.target.closest('[data-kakao]');
+    var k = e.target.closest('[data-kakao], [data-kakao-chat]');
     if (!k) return;
-    if (!CFG.kakaoChannelUrl) { e.preventDefault(); return; }
+    var url = k.hasAttribute('data-kakao-chat') ? kakaoChatUrl() : CFG.kakaoChannelUrl;
+    if (!url) { e.preventDefault(); return; }
     if (k.tagName === 'A') {
-      k.setAttribute('href', CFG.kakaoChannelUrl);
+      k.setAttribute('href', url);
       k.setAttribute('target', '_blank');
       k.setAttribute('rel', 'noopener');
     } else {
       e.preventDefault();
-      window.open(CFG.kakaoChannelUrl, '_blank', 'noopener');
+      window.open(url, '_blank', 'noopener');
     }
   });
 
@@ -478,7 +494,27 @@
       var out = form.querySelector('.form-result');
       if (out) {
         out.textContent = (d.get('name') ? d.get('name') + ' 님, 문의 내용이 준비되었습니다.\n\n' : '') + text +
-          '\n\n카카오톡 채널(' + (CFG.kakaoChannelUrl || '') + ')로 보내주시면 순서대로 답변드립니다.';
+          '\n\n아래 [문의 내용 복사]를 누른 뒤 카카오톡 채널로 붙여넣어 보내주시면 순서대로 답변드립니다.';
+        // 복사 + 카카오톡 채널 1:1 채팅 바로가기
+        var actions = document.createElement('div');
+        actions.className = 'row mt-16';
+        var copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'btn btn-line btn-sm';
+        copyBtn.textContent = '문의 내용 복사';
+        copyBtn.addEventListener('click', function () {
+          if (navigator.clipboard) navigator.clipboard.writeText(text);
+          toast('문의 내용을 복사했습니다');
+        });
+        var chatLink = document.createElement('a');
+        chatLink.className = 'btn btn-kakao btn-sm';
+        chatLink.textContent = '카카오톡 채널로 보내기';
+        chatLink.href = kakaoChatUrl() || '#';
+        chatLink.target = '_blank';
+        chatLink.rel = 'noopener';
+        actions.appendChild(copyBtn);
+        actions.appendChild(chatLink);
+        out.appendChild(actions);
         out.classList.add('is-open');
         try { out.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
       }

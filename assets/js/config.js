@@ -9,6 +9,8 @@ window.ENZYME_CONFIG = {
   hours: '평일 10:00 - 18:00 (점심 12:00 - 13:00)',
   // 카카오톡 채널 상담 주소 (기본: 하루 1.3핏 효소다이어트 / 효소세상 채널)
   kakaoChannelUrl: 'http://pf.kakao.com/_Mcvfb',
+  // 대리점·도매 상담 버튼([data-kakao-chat])은 채널 홈을 거치지 않고 1:1 채팅으로 바로 연결합니다.
+  kakaoChatUrl: 'https://pf.kakao.com/_Mcvfb/chat',
   // 주문서·문의 폼을 받을 외부 주소(Formspree 등). 비우면 화면에서 접수 내용을 만들어 복사합니다.
   formEndpoint: '',
   shipping: {
