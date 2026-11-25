@@ -56,6 +56,8 @@
 - https://enzyme-world.vercel.app/company.html — 제조사 연혁·발효 시설·사업자 정보
 - https://enzyme-world.vercel.app/order.html — 주문·배송·교환·환불
 - https://enzyme-world.vercel.app/b2b.html — 도매·총판 문의
+- https://enzyme-world.vercel.app/terms.html — 이용약관(알프스 기준, 시행 2026-11-25)
+- https://enzyme-world.vercel.app/privacy.html — 개인정보처리방침
 
 ## 고지
 
